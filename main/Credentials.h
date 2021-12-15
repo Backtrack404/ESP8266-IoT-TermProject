@@ -15,12 +15,7 @@
 #ifndef Credentials_h
 #define Credentials_h
 
-char ssid[] = "SSID";        // your network SSID (name)
-char pass[] = "PW";        // your network password
-
 //char ssid[] = "IoT_511";        // your network SSID (name)
 //char pass[] = "IoT_Test@";        // your network password
-
-
 
 #endif    //Credentials_h

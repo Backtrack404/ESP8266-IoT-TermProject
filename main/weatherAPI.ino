@@ -1,10 +1,10 @@
 #include "weatherAPI.h"
 
-void getWeatherData(struct SQL_Column *sqlColumn) 
+void getWeatherData(struct SQL_Column *sqlColumn) //client function to send/receive GET request data.
 {
   String strResult;
   
-  if (client.connect(SERVER_NAME, 80)) 
+  if (client.connect(SERVER_NAME, 80)) //starts client connection, checks for connection 
   { 
     client.println("GET /data/2.5/weather?id="+CITYID+"&units=metric&APPID="+APIKEY);
     client.println("Host: api.openweathermap.org");
@@ -14,18 +14,18 @@ void getWeatherData(struct SQL_Column *sqlColumn)
   } 
   else 
   {
-    Serial.println("connection failed"); 
+    Serial.println("connection failed"); //error message if no client connect
     Serial.println();
   }
 
-  while(client.connected() && !client.available()) delay(1); 
-  while (client.connected() || client.available())  
+  while(client.connected() && !client.available()) delay(1); //waits for data
+  while (client.connected() || client.available())  //connected or data available
   {
-    char clnt_read = client.read(); 
+    char clnt_read = client.read(); //gets byte from ethernet buffer
     strResult = strResult+clnt_read;
   }
 
-  client.stop(); 
+  client.stop(); //stop client
   strResult.replace('[', ' ');
   strResult.replace(']', ' ');
   Serial.println(strResult);
@@ -39,7 +39,7 @@ void getWeatherData(struct SQL_Column *sqlColumn)
   if (!root.success())
     Serial.println("parseObject() failed");
 
-  { // 외부에서 사용하지 마시오.
+  {
     String location = root["name"];
     String country = root["sys"]["country"];
     float temperature = root["main"]["temp"];
@@ -63,7 +63,5 @@ void getWeatherData(struct SQL_Column *sqlColumn)
     weather.toCharArray(sqlColumn->chrWeather, weather.length()+1);
     sprintf(sqlColumn->chrTemperture, "%.2f", temperature);
     sprintf(sqlColumn->chrHumidity, "%.2f", humidity);
-  } // 외부에서 사용하지 마시오.
-
-  
+  }
 }

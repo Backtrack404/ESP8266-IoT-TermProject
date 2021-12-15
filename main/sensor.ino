@@ -4,7 +4,6 @@ DHT dht(DHTPIN, DHTTYPE);
 OLED display(4, 5);
 Servo servo;
 
-// 센서 초기화 및 사용선언
 void initSensor()
 {
   char chrLcdDisplay[10];
@@ -17,7 +16,6 @@ void initSensor()
   display.print(chrLcdDisplay,2,8);
 }
 
-// DHT22 온습도 데이터를 sqlColumn 구조체에 넣음
 void getDhtData(struct SQL_Column *sqlColumn)
 {
     sqlColumn->dhtTemperature = dht.readTemperature();
@@ -28,7 +26,6 @@ void getDhtData(struct SQL_Column *sqlColumn)
     sqlColumn->strDhtHumidity.toCharArray(sqlColumn->chrDhtHumidity,sqlColumn->strDhtHumidity.length()+1);
 }
 
-// LCD clear
 void clearLcd()
 {
   display.print("                        ",0,0);
@@ -37,7 +34,6 @@ void clearLcd()
   display.print("                        ",3,0);
 }
 
-// LCD 출력
 void printLcd(struct SQL_Column *sqlColumn)
 {
   display.print(sqlColumn->chrWeather, 0, 0);
@@ -48,7 +44,6 @@ void printLcd(struct SQL_Column *sqlColumn)
   display.print(sqlColumn->chrDhtHumidity,3, 9);
 }
 
-// 모터제어
 void moveMotor(String* dbWindowState)
 {
   if(dbWindowState->compareTo("open")) { servo.write(OPEN); }

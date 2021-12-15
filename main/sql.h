@@ -7,19 +7,17 @@
 
 #define USING_HOST_NAME true
 #if USING_HOST_NAME
-  extern const char SERVER[] = "SERVER ADDRESS";
+  extern const char SERVER[] = "Server Address";
 #else
-  IPAddress server(IP, IP, IP, IP);
+  IPAddress server( IP );
 #endif
 
-extern const char USER[] = "MySQL ID";              
-extern const char PASSWD[] = "MySQL PW";          
+extern const char USER[] = "Admin ID";       
+extern const char PASSWD[] = "Admin PWD";    
 
-extern const uint16_t SERVER_PORT = PORT;    ;
-extern const char DATABASE[] = "DATABASE NAME";          
-extern const char INSERT_TABLE[] = "TABLE NAME";     
-extern const char SELECT_TABLE[] = "TABLE NAME";
-extern const char SELECT_COLUMN[] = "TABLE NAME";
+extern const uint16_t SERVER_PORT = PORT;    
+extern const char DATABASE[] = "IoT";          
+extern const char INSERT_TABLE[] = "Weather";     
 
 typedef struct SQL_Column 
 {
